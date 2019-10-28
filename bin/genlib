@@ -1,0 +1,29 @@
+#! /usr/bin/env ruby
+name = ARGV[0]
+if !name
+  puts "Input library's name: "
+  name = gets.chomp
+end
+if !File.exist?("./lib/#{name}.rb")
+  File.open("./lib/#{name}.rb", "w")
+  File.open("./spec/#{name}_spec.rb", "w") do |f|
+    desc = <<-"EOS"
+require "spec_helper"
+require "./lib/#{name}"
+
+describe #{name.split("_").map(&:capitalize).join} do
+  context "solve AOJ" do
+    it "AC" do
+      aoj_solve_test(__FILE__)
+    end
+  end
+end
+    EOS
+    f.puts desc
+  end
+  File.open("./spec/aoj_solver/#{name}.rb", "w") do |f|
+    f.puts "require \"./lib/#{name}.rb\""
+  end
+else
+  STDERR.puts "./lib/#{name}.rb is already exist"
+end

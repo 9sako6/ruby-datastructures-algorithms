@@ -1,0 +1,109 @@
+#! /usr/bin/env ruby
+require("httpclient")
+require("json")
+require_relative("../lib/helper/aoj_helper.rb")
+
+def puts_err(str)
+  puts "\e[31m#{str}\e[m"
+end
+
+def puts_success(str)
+  puts "\e[32m#{str}\e[m"
+end
+
+def login(client, username, password)
+  header = { "Content-Type" => "application/json" }
+  body = { id: username, password: password }.to_json
+  res = client.post("https://judgeapi.u-aizu.ac.jp/session", body: body, header: header)
+end
+
+def submit(client, problem_id, language, source_code)
+  header = { "Content-Type" => "application/json" }
+  body = { problemId: problem_id, language: language, sourceCode: source_code }.to_json
+  res = client.post("https://judgeapi.u-aizu.ac.jp/submissions", body: body, header: header)
+end
+
+GIT_DIFF = `git diff --stat --name-only HEAD HEAD~1`.freeze
+
+def modified?(library_name)
+  library_name << ".rb" unless library_name.match?(/.rb$/)
+  GIT_DIFF.match?(library_name)
+end
+
+def embed_require_files(source_code)
+  # embed require files
+  source_code.scan(/^require.+/).each do |require_line|
+    require_path = require_line.gsub(/[\(\)\"]/, "").gsub(/^require[^\.]*(?<path>\.\/.*)/, '\k<path>')
+    require_path << ".rb" unless require_path.match?(/.rb$/)
+    # open required file
+    File.open(require_path, "r") do |required_file|
+      required_file_source_code = required_file.read.gsub(/__END__[\s\S]+/, "")
+      required_file_source_code.gsub!(/require "\.\/lib.+/, "")
+      source_code = source_code.gsub(require_line, required_file_source_code)
+    end
+  end
+  source_code
+end
+
+SUBMISSION_STATUS = {
+  "0" => "STATE_COMPILEERROR".freeze,
+  "1" => "STATE_WRONGANSWER".freeze,
+  "2" => "STATE_TIMELIMIT".freeze,
+  "3" => "STATE_MEMORYLIMIT".freeze,
+  "4" => "STATE_ACCEPTED".freeze,
+  "5" => "STATE_WAITING".freeze,
+  "6" => "STATE_OUTPUTLIMIT".freeze,
+  "7" => "STATE_RUNTIMEERROR".freeze,
+  "8" => "STATE_PRESENTATIONERROR".freeze,
+  "9" => "STATE_RUNNING".freeze,
+}.freeze
+
+client = HTTPClient.new
+# client.debug_dev = $stderr
+
+# login
+res = login(client, ENV["AOJ_USERNAME"], ENV["AOJ_PASSWORD"])
+if res.code != 200
+  puts_err("login failed")
+  exit 1
+end
+
+# submit
+submission_count = Hash.new { |h, k| h[k] = [] }
+
+libraries = Dir.glob("./spec/aoj_solver/*")
+libraries.each do |library_path|
+  next unless modified?(File.basename(library_path))
+  problem_id = AOJHelper::Problems.problem_id(File.basename(library_path))
+  File.open(library_path, "r") do |file|
+    source_code = embed_require_files(file.read)
+    res = submit(client, problem_id, "Ruby", source_code)
+  end
+  if res.code != 200
+    sleep(10)
+    redo
+  end
+  submission_count[problem_id] << library_path
+  sleep(10)
+end
+
+report = ""
+fail_flag = false
+submission_count.each do |problem_id, libraries_list|
+  submission_response = client.get(
+    "https://judgeapi.u-aizu.ac.jp/submission_records/users/#{ENV["AOJ_USERNAME"]}/problems/#{problem_id}"
+  )
+  submission_records = JSON.parse(submission_response.body)
+  libraries_list.reverse!
+  until libraries_list.empty?
+    lib = libraries_list.shift
+    submission_record = submission_records.shift
+    status = submission_record["status"]
+    fail_flag = true if status != 4
+    report << "#{status == 4 ? "\e[32m" : "\e[31m"}#{lib}: #{SUBMISSION_STATUS[status.to_s]}\e[m\n"
+  end
+  sleep(1 + rand(1.0))
+end
+
+puts report
+exit 1 if fail_flag

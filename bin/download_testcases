@@ -1,0 +1,48 @@
+#! /usr/bin/env ruby
+require "json"
+require "optparse"
+require "./lib/helper/aoj_helper.rb"
+require "./lib/helper/progress_bar.rb"
+
+def download_testcases(problem_id, ppg, line)
+  begin
+    Dir.mkdir("./spec/aoj_testcases/#{problem_id}")
+    header = AOJHelper.get_header(problem_id)
+    header["headers"].each_with_index do |head, i|
+      # progress bar
+      printer = ppg.gen(line)
+      case_size = header["headers"].size
+      rate = (i + 1 == case_size - 1 ? 1.0 : (i + 1).to_f / case_size)
+      bar = "#" * (25 * rate).to_i
+      str = "%s: %s %3.0f%%" % [problem_id.ljust(12), bar.ljust(25, "."), rate * 100]
+      printer.pri(str)
+      # download
+      testcase = AOJHelper.get_testcase(problem_id, head["serial"])
+      base_filepath = "./spec/aoj_testcases/#{problem_id}/#{head["serial"]}"
+      File.open(base_filepath + ".in", "w") do |f|
+        f.puts testcase["in"]
+      end
+      # output cases
+      File.open(base_filepath + ".out", "w") do |f|
+        f.puts testcase["out"]
+      end
+    end
+  rescue Errno::EEXIST
+    STDERR.puts "#{problem_id} is skipped because ./spec/aoj_testcases/#{problem_id} is already exist"
+  end
+end
+
+params = ARGV.getopts("f")
+`./bin/delcases` if params["f"]
+
+# read problems list
+url_list = AOJHelper::Problems.url_list
+
+# mkdir ./spec/aoj_testcases if it is not exist
+Dir.mkdir("./spec/aoj_testcases") if !Dir.exist?("./spec/aoj_testcases")
+
+ppg = ProcessPrinterGenerator.new(url_list.size)
+url_list.each_with_index do |url, i|
+  fork { download_testcases(File.basename(url), ppg, i + 1) }
+end
+Process.waitall

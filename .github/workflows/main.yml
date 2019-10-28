@@ -1,0 +1,13 @@
+name: verify libraries
+on: push
+jobs:
+  build:
+    name: verify
+    runs-on: ubuntu-latest    
+    steps:
+    - uses: actions/checkout@master
+    - uses: ./.github/action
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        AOJ_USERNAME: ${{ secrets.AOJ_USERNAME }}
+        AOJ_PASSWORD: ${{ secrets.AOJ_PASSWORD }}
