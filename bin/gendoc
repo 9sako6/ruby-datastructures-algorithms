@@ -7,7 +7,7 @@ README_FILE = "./README.md"
 doc = <<"EOS"
 # Algorithms and Data Structures in Ruby
 
-![](https://github.com/9sako6/algorithm-ruby/workflows/verify%20libraries/badge.svg)
+![](https://github.com/9sako6/ruby-datastructures-algorithms/workflows/verify%20libraries/badge.svg)
 
 Algorithms and Data Structures playground for competitive programming in pure Ruby.
 EOS
@@ -28,9 +28,9 @@ EOS
   libraries.sort.each do |lib|
     url = AOJHelper::Problems.problem_url(lib)
     lib = File.basename(lib)
-    lib_url = "https://github.com/9sako6/algorithm-ruby/blob/master/lib/#{lib}"
+    lib_url = "https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/#{lib}"
     if File.exist?("./spec/aoj_solver/#{lib}")
-      aoj_solver_url = "https://github.com/9sako6/algorithm-ruby/blob/master/spec/aoj_solver/#{lib}"
+      aoj_solver_url = "https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/#{lib}"
       verify_link = "[code](#{aoj_solver_url})"
     else
       verify_link = "----"
