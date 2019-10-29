@@ -13,7 +13,7 @@ Algorithms and Data Structures playground for competitive programming in pure Ru
 | library | AOJ problem id | verify |
 | :---- | :---- | :---- |
 |[binary_indexed_tree.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/binary_indexed_tree.rb)|[DSL_2_B](https://onlinejudge.u-aizu.ac.jp/problems/DSL_2_B)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/binary_indexed_tree.rb)|
-|[priority_queue.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/priority_queue.rb)|[ALDS1_9_C](https://onlinejudge.u-aizu.ac.jp/solutions/problem/ALDS1_9_C)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/priority_queue.rb)|
+|[priority_queue.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/priority_queue.rb)|[ALDS1_9_C](https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/priority_queue.rb)|
 |[range_minimum_query.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/range_minimum_query.rb)|[DSL_2_A](https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_2_A)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/range_minimum_query.rb)|
 |[range_update_query.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/range_update_query.rb)|[DSL_2_D](https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_2_D)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/range_update_query.rb)|
 |[segment_tree.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/segment_tree.rb)|[DSL_2_A](https://onlinejudge.u-aizu.ac.jp/courses/library/3/DSL/1/DSL_2_A)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/segment_tree.rb)|
@@ -34,6 +34,7 @@ Algorithms and Data Structures playground for competitive programming in pure Ru
 | library | AOJ problem id | verify |
 | :---- | :---- | :---- |
 |[levenshtein_distance.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/levenshtein_distance.rb)|[DPL_1_E](https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/levenshtein_distance.rb)|
+|[longest_common_subsequence.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/longest_common_subsequence.rb)|[ALDS1_10_C](https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_10_C)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/longest_common_subsequence.rb)|
 ## Sort
 | library | AOJ problem id | verify |
 | :---- | :---- | :---- |

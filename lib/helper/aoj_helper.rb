@@ -56,13 +56,17 @@ module AOJHelper
         category: "String",
         url: "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E",
       },
+      "longest_common_subsequence.rb" => {
+        category: "String",
+        url: "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/all/ALDS1_10_C",
+      },
       "merge_sort.rb" => {
         category: "Sort",
         url: "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_B",
       },
       "priority_queue.rb" => {
         category: "Data Structure",
-        url: "https://onlinejudge.u-aizu.ac.jp/solutions/problem/ALDS1_9_C",
+        url: "https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_9_C",
       },
       "range_minimum_query.rb" => {
         category: "Data Structure",
