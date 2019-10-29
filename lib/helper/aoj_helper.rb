@@ -52,6 +52,10 @@ module AOJHelper
         category: "Network Flow",
         url: "https://onlinejudge.u-aizu.ac.jp/problems/GRL_6_A",
       },
+      "levenshtein_distance.rb" => {
+        category: "String",
+        url: "https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E",
+      },
       "merge_sort.rb" => {
         category: "Sort",
         url: "https://onlinejudge.u-aizu.ac.jp/courses/lesson/1/ALDS1/5/ALDS1_5_B",

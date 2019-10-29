@@ -30,6 +30,10 @@ Algorithms and Data Structures playground for competitive programming in pure Ru
 | library | AOJ problem id | verify |
 | :---- | :---- | :---- |
 |[fibonacci.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/fibonacci.rb)|[ALDS1_10_A](https://onlinejudge.u-aizu.ac.jp/problems/ALDS1_10_A)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/fibonacci.rb)|
+## String
+| library | AOJ problem id | verify |
+| :---- | :---- | :---- |
+|[levenshtein_distance.rb](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/lib/levenshtein_distance.rb)|[DPL_1_E](https://onlinejudge.u-aizu.ac.jp/courses/library/7/DPL/1/DPL_1_E)|[code](https://github.com/9sako6/ruby-datastructures-algorithms/blob/master/spec/aoj_solver/levenshtein_distance.rb)|
 ## Sort
 | library | AOJ problem id | verify |
 | :---- | :---- | :---- |
