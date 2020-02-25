@@ -17,14 +17,16 @@ def download_testcases(problem_id, ppg, line)
       str = "%s: %s %3.0f%%" % [problem_id.ljust(12), bar.ljust(25, "."), rate * 100]
       printer.pri(str)
       # download
-      testcase = AOJHelper.get_testcase(problem_id, head["serial"])
+      testcase_in = AOJHelper.get_testcase_in(problem_id, head["serial"])
+      testcase_out = AOJHelper.get_testcase_out(problem_id, head["serial"])
       base_filepath = "./spec/aoj_testcases/#{problem_id}/#{head["serial"]}"
+      # input cases
       File.open(base_filepath + ".in", "w") do |f|
-        f.puts testcase["in"]
+        f.puts testcase_in
       end
       # output cases
       File.open(base_filepath + ".out", "w") do |f|
-        f.puts testcase["out"]
+        f.puts testcase_out
       end
     end
   rescue Errno::EEXIST
